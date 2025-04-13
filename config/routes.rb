@@ -12,4 +12,16 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   draw :api
+
+  resources :projects do
+    member do
+      post :approve
+    end
+  end
+
+  resources :posts do
+    member do
+      post :like
+    end
+  end
 end
