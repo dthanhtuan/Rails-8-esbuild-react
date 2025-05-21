@@ -5,6 +5,11 @@
     "esbuild": "^0.25.4"
   },
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets"
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets --watch --loader:.js=jsx"
+  },
+  "dependencies": {
+    "@hotwired/turbo-rails": "^8.0.13",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   }
 }

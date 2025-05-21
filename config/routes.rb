@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   # root "posts#index"
   draw :api
 
+  root to: "dashboard#index"
   resources :posts_pundits do
     member do
       post :publish
