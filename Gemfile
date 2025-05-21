@@ -68,3 +68,7 @@ gem "faker", "~> 3.5"
 gem "pundit", "~> 2.5"
 
 gem "jsbundling-rails", "~> 1.3"
+
+gem "tailwindcss-rails", "~> 4.2"
+
+gem "tailwindcss-ruby", "~> 4.1"
