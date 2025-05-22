@@ -54,6 +54,7 @@ end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem "byebug"
   gem "web-console"
 end
 
@@ -72,3 +73,7 @@ gem "jsbundling-rails", "~> 1.3"
 gem "tailwindcss-rails", "~> 4.2"
 
 gem "tailwindcss-ruby", "~> 4.1"
+
+gem "jwt", "~> 2.10"
+
+gem "bcrypt", "~> 3.1"

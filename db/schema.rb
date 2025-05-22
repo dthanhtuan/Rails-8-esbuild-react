@@ -10,11 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_13_143450) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_22_152623) do
   create_table "admins", force: :cascade do |t|
     t.string "username"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "blacklists", force: :cascade do |t|
+    t.string "token", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["token"], name: "index_blacklists_on_token", unique: true
   end
 
   create_table "companies", force: :cascade do |t|
@@ -53,6 +60,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_13_143450) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email", null: false
+    t.string "password_digest"
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "employees", "companies"
