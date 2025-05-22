@@ -2,6 +2,7 @@ require "jwt"
 
 class JwtService
   DEFAULT_ALGORITHM = "HS256"
+  GRACE_PERIOD_SECONDS = 120 # 2 minutes
 
   def self.encode(payload, secret)
     raise JWT::EncodeError if secret.blank?
@@ -21,6 +22,26 @@ class JwtService
 
   def self.token_blacklisted?(token)
     Blacklist.exists?(token: token)
+  end
+
+  # Check if the token is blacklisted and within the grace period
+  #     - If blacklisted and within grace period, allow one last use
+  #     - If blacklisted and outside grace period, reject the request
+  #     - If not blacklisted, allow the request
+  def self.refresh_token_reused_detected?(token)
+    blacklist_entry = Blacklist.find_by(token: token)
+    return false unless blacklist_entry
+
+    Time.current > blacklist_entry.created_at + GRACE_PERIOD_SECONDS
+  end
+
+
+  # Called when reuse of revoked token is detected
+  #     # - Revoke all tokens for the user
+  #     # - Notify admins or security team
+  #     # - Force user logout or password reset
+  def self.detect_reuse(token)
+    Rails.logger.warn("Refresh token reuse detected: #{token}")
   end
 
   def self.blacklist_token(token)

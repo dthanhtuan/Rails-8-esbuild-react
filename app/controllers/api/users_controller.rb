@@ -28,19 +28,24 @@ module Api
     # POST /api/users/refresh - refresh access token
     def refresh
       refresh_token = params[:refresh_token]
-      return invalid_token_error unless refresh_token
+      return invalid_token_error unless refresh_token.present?
 
-      # Check if token is blacklisted before decoding
-      if JwtService.token_blacklisted?(refresh_token)
-        return render json: { error: "Refresh token revoked" }, status: :unauthorized
+      if JwtService.refresh_token_reused_detected?(refresh_token)
+        JwtService.detect_reuse(refresh_token)
+        return render json: { error: "Refresh token reuse detected" }, status: :unauthorized
       end
 
       begin
         decoded = JwtService.decode(refresh_token, JwtService.refresh_secret)
         user = User.find(decoded[:user_id])
+
+        # Blacklist old refresh token to prevent reuse
+        JwtService.revoke(refresh_token)
+
+        # Generate new tokens
         new_access_token = generate_access_token(user)
         new_refresh_token = generate_refresh_token(user)
-        JwtService.revoke(refresh_token) # Blacklist the old refresh token
+
         render json: {
           access_token: new_access_token,
           refresh_token: new_refresh_token,
