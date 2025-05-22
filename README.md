@@ -62,7 +62,7 @@
 - Add refresh_token to Blacklist
 ```ruby
 rails8(dev)> rf = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE3NDg1MzQzNTEsImp0aSI6ImVkN2RmMTU3LTdkYjctNGYyOS04NjAyLTJjMDFlNDYyNDk1NyJ9.S-hBI1KWsrsrrTkJcy4AumRa7_gwqxyod59AepKdDtI"
-rails8(dev)> JwtService.ban(rf)
+rails8(dev)> JwtService.revoke(rf)
 #<Blacklist:0x000079e877276e18
 id: 1,
   token: "[FILTERED]",

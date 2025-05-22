@@ -40,7 +40,7 @@ module Api
         user = User.find(decoded[:user_id])
         new_access_token = generate_access_token(user)
         new_refresh_token = generate_refresh_token(user)
-
+        JwtService.revoke(refresh_token) # Blacklist the old refresh token
         render json: {
           access_token: new_access_token,
           refresh_token: new_refresh_token,

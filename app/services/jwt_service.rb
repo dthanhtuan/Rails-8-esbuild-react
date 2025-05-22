@@ -27,7 +27,7 @@ class JwtService
     Blacklist.create!(token: token)
   end
 
-  def self.ban(refresh_token)
+  def self.revoke(refresh_token)
     JwtService.blacklist_token(refresh_token)
   end
 
