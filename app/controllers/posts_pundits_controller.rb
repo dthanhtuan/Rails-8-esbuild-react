@@ -1,13 +1,12 @@
 class PostsPunditsController < ApplicationController
   def index
-
   end
   # NOTE: authorize returns the instance passed to it, so you can chain it like this:
   def show
     @user = authorize User.find(params[:id])
     # NOTE: [:admin, User.find(params[:id])] specifies that the authorization should use a namespaced policy
     # (e.g., Admin::UserPolicy) for the User object found by User.find(params[:id]).
-    @user = authorize [:admin, User.find(params[:id])]
+    @user = authorize [ :admin, User.find(params[:id]) ]
   end
 
   def edit
