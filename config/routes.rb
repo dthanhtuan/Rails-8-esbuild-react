@@ -20,7 +20,6 @@ Rails.application.routes.draw do
       post :publish
       post :unpublish
     end
-
   end
 
   resources :projects do
