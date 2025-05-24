@@ -85,3 +85,11 @@ id: 1,
           "error": "Refresh token revoked"
           }
         ```
+# Turbo Stream and Turbo Frame Demo:
+- http://localhost:3000/posts
+- Turbo Frame:
+- Turbo Frames allow you to replace or update a part of the page without a full reload.
+  - Example: When you create a new post, it can be displayed in a specific section of the page without reloading the entire page.
+- Turbo Stream:
+  - Turbo Streams allow you to update parts of a page without a full reload.
+  - Example: When a new post is created, it can be added to the list of posts dynamically.

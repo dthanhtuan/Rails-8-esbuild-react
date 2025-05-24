@@ -10,10 +10,38 @@ class PostsController < ApplicationController
     end
   end
 
+  def index
+    @posts = Post.all
+    render :index
+  end
+
+  def show
+    @post = Post.find(params[:id])
+    render :show
+  end
+
   def update
     @post = Post.find(params[:id])
-    # NOTE: OR authorize! will raise an exception CanCan::AccessDenied if the user is not authorized
     can? :update, @post
+  end
+
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      respond_to do |format|
+        format.turbo_stream
+      end
+    else
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("post_form", partial: "posts/form", locals: { post: @post }) }
+      end
+    end
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :content, :status, :user_id)
   end
 
   rescue_from CanCan::AccessDenied do |exception|

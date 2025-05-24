@@ -1,0 +1,4 @@
+<!--Turbo_stream target the html with id `post_created`-->
+<%= turbo_stream.append "post_created" do %>
+  <%= render 'post', post: @post %>
+<% end %>

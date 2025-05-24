@@ -1,0 +1,5 @@
+<h1 class="text-2xl font-bold">New Post</h1>
+
+<%= turbo_frame_tag "post_form" do %>
+  <%= render 'form', post: @post %>
+<% end %>
