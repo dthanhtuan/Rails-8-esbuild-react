@@ -1,1 +1,49 @@
-@import "tailwindcss";
+@import "tailwindcss"; /* This must come first */
+
+/* If you need to import other standalone CSS files that Tailwind should process, */
+/* you *could* import them here, and they should contain @layer directives. */
+/* For example: */
+@import "./components/buttons.css";
+
+/* --- Custom Styles using @layer directives --- */
+
+@layer base {
+    /* Global HTML element styles or resets */
+    h1 {
+        @apply text-4xl font-bold text-gray-900 mb-4;
+    }
+    a {
+        @apply text-blue-600 hover:underline;
+    }
+}
+
+@layer components {
+    /* Reusable component classes */
+    .btn-primary {
+        @apply bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-200;
+    }
+
+    .card {
+        @apply bg-white p-6 rounded-xl shadow-lg border border-gray-200;
+    }
+}
+
+@layer utilities {
+    /* New, single-purpose utility classes */
+    .text-shadow-lg {
+        text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .perspective-1000 {
+        perspective: 1000px;
+    }
+
+    /* Hide scrollbar without affecting scroll functionality */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;     /* Firefox */
+    }
+}
