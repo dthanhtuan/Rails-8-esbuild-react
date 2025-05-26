@@ -171,3 +171,14 @@ the most straightforward and recommended approach is to:
 - @layer base: For global base styles, resets, or default styles applied to plain HTML elements. Tailwind's Preflight (its opinionated base styles) also lives in this layer.
 - @layer components: For reusable, class-based styles that you intend to be overridable by utility classes. Think of common UI components like buttons, cards, forms, etc.
 - @layer utilities: For small, single-purpose classes that should generally take precedence over other styles. This is where you'd add completely new utility classes not provided by Tailwind
+  - @apply: For applying Tailwind utility classes to your custom CSS selectors. This is useful for creating custom components or styles that leverage Tailwind's utility-first approach.
+```css
+@layer components {  
+    .btn {
+    @apply px-4 py-2 bg-blue-500 text-white rounded;
+  }  
+    .card {
+    @apply p-6 bg-white shadow-md rounded-lg;
+    }
+}
+```
