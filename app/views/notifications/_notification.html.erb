@@ -1,0 +1,11 @@
+<div
+  id="<%= dom_id(notification) %>"
+  data-controller="notification"
+  data-notification-notification-id-value="<%= notification.id %>"
+  class="notification bg-blue-500 text-white p-4 rounded shadow"
+>
+  <p><%= notification.title %></p>
+  <p><%= notification.text %></p>
+  <p><%= notification.created_at %></p>
+  <button data-action="notification#close" aria-label="Close notification">×</button>
+</div>
