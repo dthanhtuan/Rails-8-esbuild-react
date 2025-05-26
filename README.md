@@ -85,14 +85,25 @@ id: 1,
           "error": "Refresh token revoked"
           }
         ```
-# Turbo Stream and Turbo Frame Demo:
-- http://localhost:3000/posts
-- Turbo Frame:
+# Turbo Stream and Turbo Frame Demo
 - Turbo Frames allow you to replace or update a part of the page without a full reload.
-  - Example: When you create a new post, it can be displayed in a specific section of the page without reloading the entire page.
-- Turbo Stream:
-  - Turbo Streams allow you to update parts of a page without a full reload.
-  - Example: When a new post is created, it can be added to the list of posts dynamically.
+- Turbo Streams allow you to update parts of a page without a full reload.
+### Turbo Stream
+- http://localhost:3000/:
+  - Notification will be appended to the page when you create a new notification from rails console
+  - Existed notifications are loaded to the page when you visit the root URL.
+  - Open Rails console:
+    ```ruby
+      Notification.create(title: "New Notification", text: "This is a new notification created from the console.")
+    ```
+- http://localhost:3000/posts:
+  - Test the turbo stream with the post creation form.
+  - New post will be appended to the `Newly Created Post From Turbo Stream`
+
+# Stimulus JS
+- http://localhost:3000/:
+  - Notification status can be toggled by clicking the "X" button.
+  - Stimulus controller will send an AJAX request to update the notification status.
 
 # TailWind Customization
 ### Extending tailwind.config.js
