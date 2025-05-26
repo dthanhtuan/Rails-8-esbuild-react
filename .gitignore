@@ -7,6 +7,7 @@
 # Ignore bundler config.
 /.bundle
 
+db/mysql
 # Ignore all environment files.
 /.env*
 

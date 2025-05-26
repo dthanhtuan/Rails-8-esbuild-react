@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo docker exec -it agri-navi-rails-web-1 /bin/bash
+sudo docker exec -it rails-8-web-1 /bin/bash

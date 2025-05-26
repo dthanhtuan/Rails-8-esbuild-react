@@ -1,0 +1,38 @@
+services:
+  db:
+    image: mysql:8.0.35
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=rails_development
+    volumes:
+      - ./db/mysql:/var/lib/mysql
+    ports:
+      - '23316:3306'
+
+  web:
+    build: .
+    command: ./run_server.sh
+    tty: true
+    stdin_open: true
+    ports:
+      - '3000:3000'
+    volumes:
+      - '.:/rails-app:cached'
+      - bundle:/usr/local/bundle
+      - /app/log
+      - rails_cache:/app/tmp/cache
+    depends_on:
+      - db
+      - redis
+    environment:
+      - REDIS_URL=redis://redis:6379
+
+
+  redis:
+    image: redis
+    ports:
+      - '26379:6379'
+
+volumes:
+  bundle:
+  rails_cache:

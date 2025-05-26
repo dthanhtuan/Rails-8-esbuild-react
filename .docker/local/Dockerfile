@@ -1,4 +1,4 @@
-FROM ruby:3.2.1
+FROM ruby:3.2.2
 ENV LANG C.UTF-8
 
 # Install Dependencies
@@ -8,19 +8,16 @@ RUN apt-get update && apt-get install -y \
       build-essential \
       curl \
       default-mysql-client \
-      fonts-ipafont \
       libjemalloc2 \
-      vim \
-      wget \
-      xfonts-75dpi \
-      xfonts-base \
-      zip \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
+
+
 # Add LD_PRELOAD to override the default memory allocator with jemalloc
+# https://github.com/jemalloc/jemalloc/issues/1328
 ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 # Install node.js (Use Maintenance LTS)
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
  && apt-get update && apt-get install -y nodejs && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
@@ -36,6 +33,5 @@ ADD Gemfile.lock ./
 RUN bundle install --jobs 4 --retry 3
 RUN bundle clean --force
 
-RUN mkdir /agri-navi-design
-RUN mkdir /agri-navi-rails
-WORKDIR /agri-navi-rails
+RUN mkdir /rails-app
+WORKDIR /rails-app

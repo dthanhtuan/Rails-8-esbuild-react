@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo docker attach agri-navi-rails-web-1
+sudo docker attach rails-8-web-1
