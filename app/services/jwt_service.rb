@@ -16,6 +16,8 @@ class JwtService
 
 
     # JWT.decode return: [{user_id, exp, jti}, {"alg"=>"HS256"}]
+    # The `true` flag: verification of the JWT signature and claims such as expiration, issuer, audience, etc
+    # The `false` flag: false	Skip verification, useful for debugging or reading payload only
     decoded = JWT.decode(token, secret, true, algorithm: DEFAULT_ALGORITHM).first
     decoded.deep_symbolize_keys
   end
