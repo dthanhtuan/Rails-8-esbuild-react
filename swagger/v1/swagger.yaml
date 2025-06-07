@@ -1,0 +1,104 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/posts":
+    get:
+      summary: Retrieves all posts
+      tags:
+      - Posts
+      responses:
+        '200':
+          description: posts found
+    post:
+      summary: Creates a post
+      tags:
+      - Posts
+      parameters: []
+      responses:
+        '201':
+          description: post created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                title:
+                  type: string
+                status:
+                  type: integer
+                  default: 0
+                content:
+                  type: string
+              required:
+              - user_id
+              - title
+              - content
+  "/api/v1/posts/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: ID of the post
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Retrieves a post
+      tags:
+      - Posts
+      responses:
+        '200':
+          description: post found
+        '404':
+          description: post not found
+    put:
+      summary: Updates a post
+      tags:
+      - Posts
+      parameters: []
+      responses:
+        '200':
+          description: post updated
+        '422':
+          description: invalid request
+        '404':
+          description: post not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                title:
+                  type: string
+                status:
+                  type: integer
+                content:
+                  type: string
+              required:
+              - user_id
+              - title
+              - content
+    delete:
+      summary: Deletes a post
+      tags:
+      - Posts
+      responses:
+        '204':
+          description: post deleted
+        '404':
+          description: post not found
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
