@@ -72,7 +72,7 @@ RSpec.describe 'API V1 Posts', type: :request do
                properties: {
                  errors: { type: :array, items: { type: :string } }
                },
-               required: ['errors']
+               required: [ 'errors' ]
 
         # RSpec: Provide invalid request payload to test validation errors
         let(:post_params) { { user_id: nil, title: '', content: '' } }
@@ -152,7 +152,7 @@ RSpec.describe 'API V1 Posts', type: :request do
                properties: {
                  errors: { type: :array, items: { type: :string } }
                },
-               required: ['errors']
+               required: [ 'errors' ]
 
         let(:id) { Post.create(user_id: @user.id, title: 'Old Title', status: 0, content: 'Old content').id }
         let(:post_params) { { user_id: nil, title: '', content: '' } }

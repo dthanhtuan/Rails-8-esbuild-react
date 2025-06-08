@@ -1,5 +1,5 @@
 class NotificationsController < ApplicationController
-  before_action :set_notification, only: [:mark_as_read]
+  before_action :set_notification, only: [ :mark_as_read ]
 
   def mark_as_read
     @notification.update(status: :read)
