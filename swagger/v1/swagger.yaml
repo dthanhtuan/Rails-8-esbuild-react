@@ -12,6 +12,37 @@ paths:
       responses:
         '200':
           description: posts found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    user_id:
+                      type: integer
+                    title:
+                      type: string
+                      nullable: true
+                    status:
+                      type: integer
+                    content:
+                      type: string
+                      nullable: true
+                    created_at:
+                      type: string
+                      format: date_time
+                    updated_at:
+                      type: string
+                      format: date_time
+                  required:
+                  - id
+                  - user_id
+                  - status
+                  - created_at
+                  - updated_at
     post:
       summary: Creates a post
       tags:
@@ -20,8 +51,48 @@ paths:
       responses:
         '201':
           description: post created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  title:
+                    type: string
+                    nullable: true
+                  status:
+                    type: integer
+                  content:
+                    type: string
+                    nullable: true
+                  created_at:
+                    type: string
+                    format: date_time
+                  updated_at:
+                    type: string
+                    format: date_time
+                required:
+                - id
+                - user_id
+                - status
+                - created_at
+                - updated_at
         '422':
           description: invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                required:
+                - errors
       requestBody:
         content:
           application/json:
@@ -32,11 +103,13 @@ paths:
                   type: integer
                 title:
                   type: string
+                  nullable: true
                 status:
                   type: integer
                   default: 0
                 content:
                   type: string
+                  nullable: true
               required:
               - user_id
               - title
@@ -56,6 +129,35 @@ paths:
       responses:
         '200':
           description: post found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  title:
+                    type: string
+                    nullable: true
+                  status:
+                    type: integer
+                  content:
+                    type: string
+                    nullable: true
+                  created_at:
+                    type: string
+                    format: date_time
+                  updated_at:
+                    type: string
+                    format: date_time
+                required:
+                - id
+                - user_id
+                - status
+                - created_at
+                - updated_at
         '404':
           description: post not found
     put:
@@ -66,8 +168,48 @@ paths:
       responses:
         '200':
           description: post updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  title:
+                    type: string
+                    nullable: true
+                  status:
+                    type: integer
+                  content:
+                    type: string
+                    nullable: true
+                  created_at:
+                    type: string
+                    format: date_time
+                  updated_at:
+                    type: string
+                    format: date_time
+                required:
+                - id
+                - user_id
+                - status
+                - created_at
+                - updated_at
         '422':
           description: invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                required:
+                - errors
         '404':
           description: post not found
       requestBody:
@@ -80,10 +222,12 @@ paths:
                   type: integer
                 title:
                   type: string
+                  nullable: true
                 status:
                   type: integer
                 content:
                   type: string
+                  nullable: true
               required:
               - user_id
               - title

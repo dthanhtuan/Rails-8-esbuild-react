@@ -11,39 +11,69 @@ RSpec.describe 'API V1 Posts', type: :request do
   path '/api/v1/posts' do
     get 'Retrieves all posts' do
       tags 'Posts'                    # Swagger: Group endpoints under "Posts" tag
-      produces 'application/json'    # Swagger: Response content type
+      produces 'application/json'      # Swagger: Response content type
 
       response '200', 'posts found' do
-        # RSpec: Run the test and expect HTTP 200 response
+        schema type: :array,
+               items: {
+                 type: :object,
+                 properties: {
+                   id: { type: :integer },
+                   user_id: { type: :integer },
+                   title: { type: :string, nullable: true },
+                   status: { type: :integer },
+                   content: { type: :string, nullable: true },
+                   created_at: { type: :string, format: :date_time },
+                   updated_at: { type: :string, format: :date_time }
+                 },
+                 required: %w[id user_id status created_at updated_at]
+               }
         run_test!
       end
     end
 
     post 'Creates a post' do
       tags 'Posts'
-      consumes 'application/json'    # Swagger: Request content type
-      produces 'application/json'    # Swagger: Response content type
+      consumes 'application/json'      # Swagger: Request content type
+      produces 'application/json'      # Swagger: Response content type
 
       # Swagger: Define the request body schema for creating a post
       parameter name: :post_params, in: :body, schema: {
         type: :object,
         properties: {
           user_id: { type: :integer },
-          title: { type: :string },
+          title: { type: :string, nullable: true },
           status: { type: :integer, default: 0 },
-          content: { type: :string }
+          content: { type: :string, nullable: true }
         },
         required: %w[user_id title content]
       }
 
       response '201', 'post created' do
+        schema type: :object,
+               properties: {
+                 id: { type: :integer },
+                 user_id: { type: :integer },
+                 title: { type: :string, nullable: true },
+                 status: { type: :integer },
+                 content: { type: :string, nullable: true },
+                 created_at: { type: :string, format: :date_time },
+                 updated_at: { type: :string, format: :date_time }
+               },
+               required: %w[id user_id status created_at updated_at]
+
         # RSpec: Provide valid request payload
         let(:post_params) { { user_id: @user.id, title: 'New Post', status: 0, content: 'Post content' } }
-        # RSpec: Run the test and expect HTTP 201 response
         run_test!
       end
 
       response '422', 'invalid request' do
+        schema type: :object,
+               properties: {
+                 errors: { type: :array, items: { type: :string } }
+               },
+               required: ['errors']
+
         # RSpec: Provide invalid request payload to test validation errors
         let(:post_params) { { user_id: nil, title: '', content: '' } }
         run_test!
@@ -59,6 +89,18 @@ RSpec.describe 'API V1 Posts', type: :request do
       produces 'application/json'
 
       response '200', 'post found' do
+        schema type: :object,
+               properties: {
+                 id: { type: :integer },
+                 user_id: { type: :integer },
+                 title: { type: :string, nullable: true },
+                 status: { type: :integer },
+                 content: { type: :string, nullable: true },
+                 created_at: { type: :string, format: :date_time },
+                 updated_at: { type: :string, format: :date_time }
+               },
+               required: %w[id user_id status created_at updated_at]
+
         # RSpec: Create a post and use its id for the test
         let(:id) { Post.create(user_id: @user.id, title: 'Sample', status: 1, content: 'Sample content').id }
         run_test!
@@ -80,20 +122,38 @@ RSpec.describe 'API V1 Posts', type: :request do
         type: :object,
         properties: {
           user_id: { type: :integer },
-          title: { type: :string },
+          title: { type: :string, nullable: true },
           status: { type: :integer },
-          content: { type: :string }
+          content: { type: :string, nullable: true }
         },
         required: %w[user_id title content]
       }
 
       response '200', 'post updated' do
+        schema type: :object,
+               properties: {
+                 id: { type: :integer },
+                 user_id: { type: :integer },
+                 title: { type: :string, nullable: true },
+                 status: { type: :integer },
+                 content: { type: :string, nullable: true },
+                 created_at: { type: :string, format: :date_time },
+                 updated_at: { type: :string, format: :date_time }
+               },
+               required: %w[id user_id status created_at updated_at]
+
         let(:id) { Post.create(user_id: @user.id, title: 'Old Title', status: 0, content: 'Old content').id }
         let(:post_params) { { user_id: @user.id, title: 'Updated Title', status: 1, content: 'Updated content' } }
         run_test!
       end
 
       response '422', 'invalid request' do
+        schema type: :object,
+               properties: {
+                 errors: { type: :array, items: { type: :string } }
+               },
+               required: ['errors']
+
         let(:id) { Post.create(user_id: @user.id, title: 'Old Title', status: 0, content: 'Old content').id }
         let(:post_params) { { user_id: nil, title: '', content: '' } }
         run_test!
