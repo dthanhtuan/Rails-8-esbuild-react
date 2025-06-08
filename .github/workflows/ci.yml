@@ -86,8 +86,10 @@ jobs:
 
       - name: Run tests
         env:
-          RAILS_ENV: test
-          MYSQL_HOST: localhost # Running jobs on the runner machine, access MySQL via localhost
+          MYSQL_HOST: 127.0.0.1 # Running jobs on the runner machine, access MySQL via 127.0.0.1
+          MYSQL_PORT: 3306
+          MYSQL_USERNAME: root
+          MYSQL_PASSWORD: root
         run: bin/rails db:test:prepare test test:system
 
       - name: Keep screenshots from failed system tests
