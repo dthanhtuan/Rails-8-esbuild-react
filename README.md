@@ -211,8 +211,6 @@ the most straightforward and recommended approach is to:
         @apply p-6 bg-white shadow-md rounded-lg;
     }
 }
-```
-
 ### RSwap API Documentation
 
 - Generate a rswag spec controller:
