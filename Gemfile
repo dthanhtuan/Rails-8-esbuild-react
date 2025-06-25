@@ -51,7 +51,7 @@ gem "tailwindcss-rails", "~> 4.2"
 
 gem "tailwindcss-ruby", "~> 4.1"
 
-gem "jwt", "~> 2.10"
+gem "jwt", "~> 3.1"
 gem "rswag-api"
 gem "rswag-ui"
 gem "blueprinter"
